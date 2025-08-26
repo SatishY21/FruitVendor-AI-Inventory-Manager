@@ -1,0 +1,234 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -640,
+        -112
+      ],
+      "id": "402adb6a-536a-40b5-bc9c-f82a3864edef",
+      "name": "When chat message received",
+      "webhookId": "b89b11ab-c364-4899-9df6-cddce8a9d1e2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -432,
+        -112
+      ],
+      "id": "5b5751f2-b75e-40a0-b9fd-214c110e626e",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -576,
+        96
+      ],
+      "id": "71aa0b50-af52-4c12-9eaa-3ee36bc43167",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "erFuhKg1jPBKySV4",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 3
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -432,
+        96
+      ],
+      "id": "85887a6c-21ac-4ab4-8c8f-de4739304ff2",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1Lg8fbibrN4SlW7WoYJkdh1CTF71LsXqOgtYAM-_mFW4",
+          "mode": "list",
+          "cachedResultName": "n8n_test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Lg8fbibrN4SlW7WoYJkdh1CTF71LsXqOgtYAM-_mFW4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Lg8fbibrN4SlW7WoYJkdh1CTF71LsXqOgtYAM-_mFW4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Fruit Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Fruit_Name__using_to_match_', ``, 'string') }}",
+            "Count": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Count', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Fruit Name"
+          ],
+          "schema": [
+            {
+              "id": "Fruit Name",
+              "displayName": "Fruit Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Count",
+              "displayName": "Count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -256,
+        96
+      ],
+      "id": "31018b86-722c-41b6-8f63-ce3fd69e1daa",
+      "name": "Update Inventory",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bAmGTott0XYTabNX",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Lg8fbibrN4SlW7WoYJkdh1CTF71LsXqOgtYAM-_mFW4",
+          "mode": "list",
+          "cachedResultName": "n8n_test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Lg8fbibrN4SlW7WoYJkdh1CTF71LsXqOgtYAM-_mFW4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Lg8fbibrN4SlW7WoYJkdh1CTF71LsXqOgtYAM-_mFW4/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -80,
+        96
+      ],
+      "id": "8c336dd7-34fe-4eed-a10d-839e5b352b04",
+      "name": "Inventory Search",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bAmGTott0XYTabNX",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Inventory": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inventory Search": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3c9a9ec5-68a5-4b4b-8387-7bbaa3439e92",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b775fa34e364ff1301821c67a36d79aea6d7f8cdd1d12670e30172d746f662ad"
+  },
+  "id": "O9pbSw7kVMVKGYTM",
+  "tags": []
+}
